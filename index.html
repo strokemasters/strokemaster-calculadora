@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Strokemasters - Calculadora</title>
+
+<style>
+    body {
+        background: #111;
+        color: #fff;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    header {
+        background: #d60000;
+        padding: 20px;
+        text-align: center;
+        font-size: 28px;
+        font-weight: bold;
+        color: white;
+        letter-spacing: 2px;
+        border-bottom: 4px solid white;
+    }
+
+    .container {
+        max-width: 500px;
+        margin: 30px auto;
+        background: #1c1c1c;
+        padding: 20px;
+        border-radius: 12px;
+        border: 2px solid #d60000;
+    }
+
+    .item {
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 18px;
+        margin-bottom: 5px;
+        display: block;
+        color: #ff4c4c;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 8px;
+        border: none;
+        margin-top: 5px;
+        font-size: 16px;
+    }
+
+    button {
+        width: 100%;
+        padding: 15px;
+        font-size: 20px;
+        border: none;
+        background: #d60000;
+        color: white;
+        border-radius: 8px;
+        margin-top: 20px;
+        cursor: pointer;
+        font-weight: bold;
+    }
+
+    button:hover {
+        background: #a00000;
+    }
+
+    #resultado {
+        margin-top: 25px;
+        font-size: 24px;
+        text-align: center;
+        color: #00ff7f;
+        font-weight: bold;
+    }
+</style>
+</head>
+<body>
+
+<header>STROKEMASTERS - CALCULADORA</header>
+
+<div class="container">
+
+    <div class="item">
+        <label>Reparar veículo (2000$ por unid.)</label>
+        <input id="reparo" type="number" placeholder="Quantidade">
+    </div>
+
+    <div class="item">
+        <label>Kit de ferramentas (1000$ por unid.)</label>
+        <input id="kit" type="number" placeholder="Quantidade">
+    </div>
+
+    <div class="item">
+        <label>Conjunto de ferramentas (3000$ por unid.)</label>
+        <input id="conjunto" type="number" placeholder="Quantidade">
+    </div>
+
+    <div class="item">
+        <label>Chave inglesa (1000$ por unid.)</label>
+        <input id="chave" type="number" placeholder="Quantidade">
+    </div>
+
+    <div class="item">
+        <label>Pneu (1000$ por unid.)</label>
+        <input id="pneu" type="number" placeholder="Quantidade">
+    </div>
+
+    <div class="item">
+        <label>Atendimento fora (1000$ por KM)</label>
+        <input id="km" type="number" placeholder="KM rodado">
+    </div>
+
+    <div class="item">
+        <label>Tunning (valor + 30%)</label>
+        <input id="tuning" type="number" placeholder="Valor base do tunning">
+    </div>
+
+    <button onclick="calcular()">CALCULAR TOTAL</button>
+
+    <div id="resultado">TOTAL: R$ 0,00</div>
+
+</div>
+
+<script>
+function calcular() {
+
+    let reparo = (parseFloat(document.getElementById("reparo").value) || 0) * 2000;
+    let kit = (parseFloat(document.getElementById("kit").value) || 0) * 1000;
+    let conjunto = (parseFloat(document.getElementById("conjunto").value) || 0) * 3000;
+    let chave = (parseFloat(document.getElementById("chave").value) || 0) * 1000;
+    let pneu = (parseFloat(document.getElementById("pneu").value) || 0) * 1000;
+    let km = (parseFloat(document.getElementById("km").value) || 0) * 1000;
+
+    let tuningVal = parseFloat(document.getElementById("tuning").value) || 0;
+    let tuningFinal = tuningVal + (tuningVal * 0.30);
+
+    let total = reparo + kit + conjunto + chave + pneu + km + tuningFinal;
+
+    document.getElementById("resultado").innerHTML = "TOTAL: R$ " + total.toLocaleString("pt-BR");
+}
+</script>
+
+</body>
+</html>
