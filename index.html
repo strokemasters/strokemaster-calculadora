@@ -3,202 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STROKEMASTERS - Samurai Calc</title>
-
-    <!-- Fontes japonesas -->
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Roboto+Condensed:wght@300;400;700&family=Zen+Kurenaido&display=swap" rel="stylesheet">
+    <title>Strokemasters - Calculadora Samurai</title>
 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;700&family=Rajdhani:wght@600;700&display=swap');
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: "Zen Kaku Gothic New", sans-serif;
         }
 
         body {
-            color: white;
-            font-family: 'Zen Kurenaido', sans-serif;
             overflow-x: hidden;
+            height: 100vh;
+            background: black;
+            color: white;
         }
 
-        /* VIDEO DE FUNDO */
+        /* Vídeo de fundo */
         #bg-video {
             position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             object-fit: cover;
-            top: 0;
-            left: 0;
-            z-index: -3;
+            z-index: -2;
+            filter: brightness(0.35);
         }
 
-        /* Overlay escura */
+        /* Camada escura */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.78);
-            z-index: -2;
-        }
-
-        /* Sakura caindo */
-        .sakura {
-            position: fixed;
-            top: -10px;
-            width: 20px;
-            height: 20px;
-            background-image: url('https://i.imgur.com/ybOeVQt.png');
-            background-size: cover;
-            opacity: 0.7;
-            animation: cair 8s linear infinite;
+            background: rgba(0,0,0,0.45);
             z-index: -1;
         }
 
-        @keyframes cair {
-            0% { transform: translateY(-50px) translateX(0) rotate(0deg); }
-            100% { transform: translateY(110vh) translateX(40px) rotate(360deg); }
-        }
-
-        /* TÍTULO COM EFEITO NEON */
-        header {
+        /* Logo */
+        .logo {
             text-align: center;
-            padding: 25px 0;
+            margin-top: 25px;
+            font-size: 38px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ff2a2a;
+            text-shadow: 0 0 10px #ff2a2a, 0 0 30px #ff0000;
+            font-family: "Rajdhani", sans-serif;
         }
 
-        header h1 {
-            font-family: 'Kosugi Maru', sans-serif;
-            font-size: 40px;
-            letter-spacing: 4px;
-            color: #ff2e4d;
-            text-shadow: 0 0 10px #ff002f, 0 0 25px #ff002f;
-        }
-
-        header p {
-            opacity: 0.8;
-            font-size: 17px;
+        .sub {
+            text-align: center;
+            margin-top: -5px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ffdddd;
         }
 
         /* Container */
-        .calculadora {
-            width: 420px;
-            margin: 40px auto;
-            background: rgba(0,0,0,0.55);
-            border: 1px solid rgba(255,50,80,0.4);
-            box-shadow: 0 0 25px rgba(255,0,40,0.4);
+        .calc-box {
+            max-width: 420px;
+            margin: auto;
+            margin-top: 20px;
             padding: 25px;
-            border-radius: 18px;
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 12px;
+            border: 2px solid #ff2a2a;
+            box-shadow: 0 0 15px #ff000060;
+            backdrop-filter: blur(6px);
         }
 
-        .calculadora label {
-            font-size: 18px;
-            letter-spacing: 1px;
-            margin-bottom: 6px;
+        label {
+            margin-top: 12px;
+            font-size: 15px;
             display: block;
+            color: #ffcccc;
         }
 
-        .calculadora input {
+        input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 18px;
-            border-radius: 10px;
-            border: 1px solid rgba(255,0,40,0.4);
-            background: rgba(255,255,255,0.15);
-            color: white;
-            font-size: 16px;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: none;
             outline: none;
+            background: #111;
+            color: white;
+            border: 1px solid #ff2a2a88;
         }
 
-        /* Botão Samurai Neon */
         button {
             width: 100%;
-            padding: 14px;
-            background: #ff002f;
+            padding: 12px;
+            margin-top: 18px;
             border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 20px;
-            letter-spacing: 3px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
-            font-family: 'Kosugi Maru';
-            text-shadow: 0 0 8px rgb(255, 80, 110);
-            box-shadow: 0 0 15px rgba(255,0,40,0.7);
-            transition: 0.2s;
+            color: white;
         }
 
-        button:hover {
-            background: #ff1c43;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255,0,40,1);
+        .btn-calc {
+            background: #ff0000;
+            box-shadow: 0 0 10px #ff0000aa;
         }
 
-        .resultado {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255,255,255,0.10);
-            border-radius: 14px;
-            min-height: 40px;
+        .btn-clear {
+            background: #333;
+        }
+
+        .total {
+            margin-top: 18px;
+            text-align: center;
             font-size: 20px;
+            font-weight: bold;
+            color: #00ffbb;
+            text-shadow: 0 0 8px #00ffbb;
         }
-
     </style>
 </head>
+
 <body>
 
-    <!-- VÍDEO DE FUNDO -->
-    <video autoplay muted loop id="bg-video">
+    <!-- Vídeo de fundo -->
+    <video id="bg-video" autoplay loop muted playsinline>
         <source src="fundo.mp4" type="video/mp4">
     </video>
 
     <div class="overlay"></div>
 
-    <!-- SAKURAS -->
-    <script>
-        for(let i = 0; i < 20; i++){
-            let s = document.createElement("div");
-            s.className = "sakura";
-            s.style.left = Math.random()*100 + "vw";
-            s.style.animationDelay = Math.random()*8 + "s";
-            s.style.opacity = Math.random()*0.9;
-            document.body.appendChild(s);
-        }
-    </script>
+    <div class="logo">STROKEMASTERS</div>
+    <div class="sub">⚔ Calculadora Samurai ⚔</div>
 
-    <header>
-        <h1>STROKEMASTERS</h1>
-        <p>⚔️ Calculadora Samurai ⚔️</p>
-    </header>
+    <div class="calc-box">
 
-    <div class="calculadora">
+        <label>Reparar veículo (2000$ por unid.)</label>
+        <input id="reparar" type="number" placeholder="Quantidade">
 
-        <label>Valor do serviço (R$):</label>
-        <input id="servico" type="number">
+        <label>Kit de ferramentas (1000$ por unid.)</label>
+        <input id="kit" type="number" placeholder="Quantidade">
 
-        <label>Porcentagem (%) :</label>
-        <input id="porcentagem" type="number">
+        <label>Conjunto de ferramentas (3000$ por unid.)</label>
+        <input id="conjunto" type="number" placeholder="Quantidade">
 
-        <button onclick="calcular()">CALCULAR</button>
+        <label>Chave inglesa (3900$ por unid.)</label>
+        <input id="chave" type="number" placeholder="Quantidade">
 
-        <div id="resultado" class="resultado"></div>
+        <label>Pneu (1000$ por unid.)</label>
+        <input id="pneu" type="number" placeholder="Quantidade">
 
+        <label>Atendimento fora (1000$ por KM)</label>
+        <input id="km" type="number" placeholder="KM rodado">
+
+        <label>Tunning (valor + 30%)</label>
+        <input id="tunning" type="number" placeholder="Valor base do tunning">
+
+        <button class="btn-calc" onclick="calcular()">CALCULAR TOTAL</button>
+        <button class="btn-clear" onclick="limpar()">LIMPAR</button>
+
+        <div id="total" class="total">TOTAL: R$ 0,00</div>
     </div>
 
 <script>
 function calcular() {
-    let s = parseFloat(document.getElementById("servico").value);
-    let p = parseFloat(document.getElementById("porcentagem").value);
+    let reparar = (parseInt(document.getElementById("reparar").value) || 0) * 2000;
+    let kit = (parseInt(document.getElementById("kit").value) || 0) * 1000;
+    let conjunto = (parseInt(document.getElementById("conjunto").value) || 0) * 3000;
+    let chave = (parseInt(document.getElementById("chave").value) || 0) * 3900;
+    let pneu = (parseInt(document.getElementById("pneu").value) || 0) * 1000;
+    let km = (parseInt(document.getElementById("km").value) || 0) * 1000;
 
-    if (isNaN(s) || isNaN(p)) {
-        document.getElementById("resultado").innerHTML = "Preencha tudo, guerreiro samurai.";
-        return;
-    }
+    let tunningBase = parseFloat(document.getElementById("tunning").value) || 0;
+    let tunning = tunningBase + (tunningBase * 0.3);
 
-    let valorFinal = s * (p / 100);
+    let total = reparar + kit + conjunto + chave + pneu + km + tunning;
 
-    document.getElementById("resultado").innerHTML =
-        "Resultado: <b>R$ " + valorFinal.toFixed(2) + "</b>";
+    document.getElementById("total").innerHTML = "TOTAL: R$ " + total.toFixed(2);
+}
+
+function limpar() {
+    document.querySelectorAll("input").forEach(i => i.value = "");
+    document.getElementById("total").innerHTML = "TOTAL: R$ 0,00";
 }
 </script>
 
