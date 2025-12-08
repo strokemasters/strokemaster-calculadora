@@ -7,15 +7,26 @@
 
 <style>
     body {
-        background: #111;
+        background: #000 url('LOGO-BASE64-AQUI') no-repeat center center fixed;
+        background-size: cover;
         color: #fff;
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
     }
 
+    /* Deixa um sombreado por cima para facilitar a leitura */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.65);
+        backdrop-filter: blur(3px);
+        z-index: -1;
+    }
+
     header {
-        background: #d60000;
+        background: rgba(214, 0, 0, 0.9);
         padding: 20px;
         text-align: center;
         font-size: 28px;
@@ -28,7 +39,7 @@
     .container {
         max-width: 500px;
         margin: 30px auto;
-        background: #1c1c1c;
+        background: rgba(0, 0, 0, 0.75);
         padding: 20px;
         border-radius: 12px;
         border: 2px solid #d60000;
@@ -69,6 +80,15 @@
 
     button:hover {
         background: #a00000;
+    }
+
+    #limpar {
+        background: #444;
+        margin-top: 10px;
+    }
+
+    #limpar:hover {
+        background: #333;
     }
 
     #resultado {
@@ -123,6 +143,8 @@
 
     <button onclick="calcular()">CALCULAR TOTAL</button>
 
+    <button id="limpar" onclick="limpar()">LIMPAR</button>
+
     <div id="resultado">TOTAL: R$ 0,00</div>
 
 </div>
@@ -143,6 +165,11 @@ function calcular() {
     let total = reparo + kit + conjunto + chave + pneu + km + tuningFinal;
 
     document.getElementById("resultado").innerHTML = "TOTAL: R$ " + total.toLocaleString("pt-BR");
+}
+
+function limpar() {
+    document.querySelectorAll("input").forEach(i => i.value = "");
+    document.getElementById("resultado").innerHTML = "TOTAL: R$ 0,00";
 }
 </script>
 
