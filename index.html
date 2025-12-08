@@ -1,177 +1,156 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Strokemasters - Calculadora</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strokemasters - Calculadora</title>
 
-<style>
-    body {
-        background: #000 url('fundo.jpg') no-repeat center center fixed;
-        background-size: cover;
-        color: #fff;
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('fundo.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            color: white;
+        }
 
-    /* Escurece o fundo para deixar mais legível */
-    body::before {
-        content: "";
-        position: fixed;
-        inset: 0;
-        background: rgba(0,0,0,0.65);
-        backdrop-filter: blur(3px);
-        z-index: -1;
-    }
+        /* overlay para escurecer o fundo e melhorar a leitura */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: -1;
+        }
 
-    header {
-        background: rgba(214, 0, 0, 0.9);
-        padding: 20px;
-        text-align: center;
-        font-size: 28px;
-        font-weight: bold;
-        color: white;
-        letter-spacing: 2px;
-        border-bottom: 4px solid white;
-    }
+        h1 {
+            text-align: center;
+            background: #c40000;
+            color: white;
+            padding: 20px;
+            margin: 0;
+            border-bottom: 3px solid white;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
 
-    .container {
-        max-width: 500px;
-        margin: 30px auto;
-        background: rgba(0, 0, 0, 0.75);
-        padding: 20px;
-        border-radius: 12px;
-        border: 2px solid #d60000;
-    }
+        .container {
+            width: 90%;
+            max-width: 450px;
+            margin: 40px auto;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid red;
+            position: relative;
+            z-index: 1;
+        }
 
-    .item {
-        margin-bottom: 15px;
-    }
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            color: #ff4444;
+            font-weight: bold;
+        }
 
-    label {
-        font-size: 18px;
-        margin-bottom: 5px;
-        display: block;
-        color: #ff4c4c;
-    }
+        input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
 
-    input {
-        width: 100%;
-        padding: 10px;
-        border-radius: 8px;
-        border: none;
-        margin-top: 5px;
-        font-size: 16px;
-    }
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            cursor: pointer;
+            font-weight: bold;
+            color: white;
+            margin-top: 10px;
+        }
 
-    button {
-        width: 100%;
-        padding: 15px;
-        font-size: 20px;
-        border: none;
-        background: #d60000;
-        color: white;
-        border-radius: 8px;
-        margin-top: 20px;
-        cursor: pointer;
-        font-weight: bold;
-    }
+        #btnCalcular {
+            background: #d40000;
+        }
 
-    button:hover {
-        background: #a00000;
-    }
+        #btnLimpar {
+            background: #555;
+        }
 
-    #limpar {
-        background: #444;
-        margin-top: 10px;
-    }
-
-    #limpar:hover {
-        background: #333;
-    }
-
-    #resultado {
-        margin-top: 25px;
-        font-size: 24px;
-        text-align: center;
-        color: #00ff7f;
-        font-weight: bold;
-    }
-</style>
+        #total {
+            margin-top: 20px;
+            font-size: 22px;
+            text-align: center;
+            font-weight: bold;
+            color: #00ff55;
+        }
+    </style>
 </head>
+
 <body>
 
-<header>STROKEMASTERS - CALCULADORA</header>
+    <div class="overlay"></div>
 
-<div class="container">
+    <h1>STROKEMASTERS - CALCULADORA</h1>
 
-    <div class="item">
+    <div class="container">
         <label>Reparar veículo (2000$ por unid.)</label>
-        <input id="reparo" type="number" placeholder="Quantidade">
-    </div>
+        <input type="number" id="reparar" placeholder="Quantidade">
 
-    <div class="item">
         <label>Kit de ferramentas (1000$ por unid.)</label>
-        <input id="kit" type="number" placeholder="Quantidade">
-    </div>
+        <input type="number" id="kit" placeholder="Quantidade">
 
-    <div class="item">
         <label>Conjunto de ferramentas (3000$ por unid.)</label>
-        <input id="conjunto" type="number" placeholder="Quantidade">
-    </div>
+        <input type="number" id="conjunto" placeholder="Quantidade">
 
-    <div class="item">
         <label>Chave inglesa (1000$ por unid.)</label>
-        <input id="chave" type="number" placeholder="Quantidade">
-    </div>
+        <input type="number" id="chave" placeholder="Quantidade">
 
-    <div class="item">
         <label>Pneu (1000$ por unid.)</label>
-        <input id="pneu" type="number" placeholder="Quantidade">
-    </div>
+        <input type="number" id="pneu" placeholder="Quantidade">
 
-    <div class="item">
         <label>Atendimento fora (1000$ por KM)</label>
-        <input id="km" type="number" placeholder="KM rodado">
-    </div>
+        <input type="number" id="km" placeholder="KM rodado">
 
-    <div class="item">
         <label>Tunning (valor + 30%)</label>
-        <input id="tuning" type="number" placeholder="Valor base do tunning">
+        <input type="number" id="tunning" placeholder="Valor base do tunning">
+
+        <button id="btnCalcular">CALCULAR TOTAL</button>
+        <button id="btnLimpar">LIMPAR</button>
+
+        <div id="total">TOTAL: R$ 0,00</div>
     </div>
 
-    <button onclick="calcular()">CALCULAR TOTAL</button>
+    <script>
+        document.getElementById("btnCalcular").addEventListener("click", function () {
+            let reparar = Number(document.getElementById("reparar").value) * 2000;
+            let kit = Number(document.getElementById("kit").value) * 1000;
+            let conjunto = Number(document.getElementById("conjunto").value) * 3000;
+            let chave = Number(document.getElementById("chave").value) * 1000;
+            let pneu = Number(document.getElementById("pneu").value) * 1000;
+            let km = Number(document.getElementById("km").value) * 1000;
 
-    <button id="limpar" onclick="limpar()">LIMPAR</button>
+            let tunningBase = Number(document.getElementById("tunning").value);
+            let tunning = tunningBase > 0 ? tunningBase * 1.3 : 0;
 
-    <div id="resultado">TOTAL: R$ 0,00</div>
+            let total = reparar + kit + conjunto + chave + pneu + km + tunning;
 
-</div>
+            document.getElementById("total").innerText = "TOTAL: R$ " + total.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
+        });
 
-<script>
-function calcular() {
-
-    let reparo = (parseFloat(document.getElementById("reparo").value) || 0) * 2000;
-    let kit = (parseFloat(document.getElementById("kit").value) || 0) * 1000;
-    let conjunto = (parseFloat(document.getElementById("conjunto").value) || 0) * 3000;
-    let chave = (parseFloat(document.getElementById("chave").value) || 0) * 1000;
-    let pneu = (parseFloat(document.getElementById("pneu").value) || 0) * 1000;
-    let km = (parseFloat(document.getElementById("km").value) || 0) * 1000;
-
-    let tuningVal = parseFloat(document.getElementById("tuning").value) || 0;
-    let tuningFinal = tuningVal + (tuningVal * 0.30);
-
-    let total = reparo + kit + conjunto + chave + pneu + km + tuningFinal;
-
-    document.getElementById("resultado").innerHTML = "TOTAL: R$ " + total.toLocaleString("pt-BR");
-}
-
-function limpar() {
-    document.querySelectorAll("input").forEach(i => i.value = "");
-    document.getElementById("resultado").innerHTML = "TOTAL: R$ 0,00";
-}
-</script>
+        document.getElementById("btnLimpar").addEventListener("click", function () {
+            document.querySelectorAll("input").forEach(i => i.value = "");
+            document.getElementById("total").innerText = "TOTAL: R$ 0,00";
+        });
+    </script>
 
 </body>
 </html>
