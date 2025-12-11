@@ -30,41 +30,18 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            z-index: -3;
-            filter: brightness(0.30);
+            z-index: -2;
+            filter: brightness(0.35);
         }
 
-        /* Sobreposição escura */
+        /* Camada escura */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.55);
-            z-index: -2;
-        }
-
-        /* Sakura Neon (Decorativo) */
-        .sakura {
-            position: fixed;
-            right: -40px;
-            top: 0;
-            width: 180px;
-            opacity: 0.25;
-            filter: drop-shadow(0 0 12px #ff2a2a);
-            z-index: -1;
-        }
-
-        /* Katana decorativa */
-        .katana {
-            position: fixed;
-            left: 0;
-            bottom: 0;
-            width: 220px;
-            opacity: 0.14;
-            transform: rotate(-10deg);
-            filter: drop-shadow(0 0 10px #ff0000);
+            background: rgba(0,0,0,0.45);
             z-index: -1;
         }
 
@@ -72,7 +49,7 @@
         .logo {
             text-align: center;
             margin-top: 25px;
-            font-size: 40px;
+            font-size: 38px;
             font-weight: 700;
             letter-spacing: 3px;
             color: #ff2a2a;
@@ -82,23 +59,23 @@
 
         .sub {
             text-align: center;
-            font-size: 16px;
+            margin-top: -5px;
             margin-bottom: 20px;
+            font-size: 16px;
             color: #ffdddd;
-            letter-spacing: 2px;
         }
 
-        /* Caixa da calculadora */
+        /* Container */
         .calc-box {
-            max-width: 430px;
+            max-width: 420px;
             margin: auto;
             margin-top: 20px;
             padding: 25px;
-            background: rgba(0,0,0,0.75);
-            backdrop-filter: blur(7px);
+            background: rgba(0, 0, 0, 0.75);
             border-radius: 12px;
             border: 2px solid #ff2a2a;
-            box-shadow: 0 0 15px #ff000050;
+            box-shadow: 0 0 15px #ff000060;
+            backdrop-filter: blur(6px);
         }
 
         label {
@@ -144,41 +121,40 @@
         .total {
             margin-top: 18px;
             text-align: center;
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
             color: #00ffbb;
             text-shadow: 0 0 8px #00ffbb;
         }
 
-        /* Checkbox Parceria */
-        .parceria-box {
-            margin-top: 18px;
+        /* Estilo checkbox parceria */
+        .check-line {
+            margin-top: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #ffcccc;
-            font-size: 16px;
+            color: #ffaaaa;
+            font-size: 15px;
         }
 
-        .parceria-box input {
+        .check-line input[type="checkbox"] {
             width: 20px;
             height: 20px;
             accent-color: #ff0000;
+            cursor: pointer;
         }
+
     </style>
 </head>
 
 <body>
 
-    <!-- Fundo -->
+    <!-- Vídeo de fundo -->
     <video id="bg-video" autoplay loop muted playsinline>
         <source src="fundo.mp4" type="video/mp4">
     </video>
 
     <div class="overlay"></div>
-
-    <img class="sakura" src="https://i.imgur.com/9W1Yp5p.png">
-    <img class="katana" src="https://i.imgur.com/lZjP3eV.png">
 
     <div class="logo">STROKEMASTERS</div>
     <div class="sub">⚔ Calculadora Samurai ⚔</div>
@@ -206,10 +182,10 @@
         <label>Tunning (valor + 30%)</label>
         <input id="tunning" type="number" placeholder="Valor base do tunning">
 
-        <!-- Checkbox parceria -->
-        <div class="parceria-box">
-            <input type="checkbox" id="parceria">
-            <label for="parceria">Aplicar Parceria (+15%)</label>
+        <!-- Checkbox Parceria -->
+        <div class="check-line">
+            <input id="parceria" type="checkbox">
+            <span>Aplicar Parceria (-15%)</span>
         </div>
 
         <button class="btn-calc" onclick="calcular()">CALCULAR TOTAL</button>
@@ -228,17 +204,17 @@ function calcular() {
     let km = (parseInt(document.getElementById("km").value) || 0) * 1000;
 
     let tunningBase = parseFloat(document.getElementById("tunning").value) || 0;
-    let tunning = tunningBase + (tunningBase * 0.30);
+    let tunning = tunningBase + (tunningBase * 0.3);
 
     let total = reparar + kit + conjunto + chave + pneu + km + tunning;
 
-    // Parceria +15%
+    // Aplicar parceria (-15%)
     let parceria = document.getElementById("parceria").checked;
     if (parceria) {
-        total = total * 1.15;
+        total = total * 0.85;
     }
 
-    document.getElementById("total").innerHTML = "TOTAL: R$ " + total.toFixed(2);
+    document.getElementById("total").innerHTML = "TOTAL: R$ " + total.toLocaleString("pt-BR", { minimumFractionDigits: 2 });
 }
 
 function limpar() {
